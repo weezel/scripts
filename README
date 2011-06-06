@@ -1,6 +1,0 @@
-Scripts to be used with Unix
-
-external_disp.sh	# xrandr helper script
-netchoose.sh		# Easier way to use wlan in OpenBSD
-update-out-of-date.sh	# Check which installed packages are
-			# out of date and do make update. OpenBSD
