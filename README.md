@@ -1,12 +1,15 @@
 #Scripts to be used with Unix
 
-##external_disp.sh
+###external_disp.sh
 xrandr helper script for Xorg. Eases the second display usage.
 
-##netchoose.sh
+###netchoose.sh
 Easier way to use WLAN devices in OpenBSD.
 `$ netchoose.sh 3` chooses third option from the choices.
 
-##update-out-of-date.sh
+###update-out-of-date.sh
 Check which installed packages are out of date and do make update. For OpenBSD.
+
+###pivot_toggle.sh
+Toggle between the normal and the pivot mode of the display.
 
