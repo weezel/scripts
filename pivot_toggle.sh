@@ -6,7 +6,6 @@ PREFERRED_CONNECTION="HDMI"
 ### NO NEED TO CHANGE AFTER THIS ###
 CONNECTED_CNT=`xrandr|grep '\sconnected'|awk '{print $1}'|wc -l`
 
-echo $CONNECTED_CNT
 # One screen connected
 if [ ${CONNECTED_CNT} -le 1 ]; then
 	DEF_SCREEN=`xrandr|grep '\sconnected'|awk '{print $3}'`
@@ -33,7 +32,7 @@ else
 	fi
 fi
 
-# Toggle portrait
+# Screen rotate toggle
 if [ ${WIDTH} -gt ${HEIGHT} ]; then
 	xrandr --output `xrandr |grep "${DEF_SCREEN}" |awk '{print $1}'` --rotate left
 else
