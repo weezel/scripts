@@ -14,5 +14,5 @@ chooses third option from the choices.
 Check which installed packages are out of date and do make update. For OpenBSD.
 
 ###pivot_toggle.sh
-Toggle between the normal and the pivot mode of the display.
+Toggle between the normal and the pivot mode of the display. Use with the keyboard shortcuts.
 
