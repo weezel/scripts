@@ -1,7 +1,7 @@
 #Scripts to be used with Unix
 
 ###external_disp.sh
-xrandr helper script for Xorg. Eases the second display usage.
+xrandr helper script for Xorg. Eases the secondary display usage.
 
 ###netchoose.sh
 Easier way to use WLAN devices in OpenBSD.
