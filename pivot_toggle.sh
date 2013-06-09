@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The only thing that has to be changed
-PREFERRED_CONNECTION="HDMI"
+PREFERRED_CONNECTION="HDMI1"
 
 ### NO NEED TO CHANGE AFTER THIS ###
 CONNECTED_CNT=`xrandr|grep '\sconnected'|awk '{print $1}'|wc -l`
