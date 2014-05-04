@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# DEPENDENCIES
+#    - Use with trunk device, really.
+#
+# CONFIGURATION:
+#    - Change knownwaps_file variable to point wherever you have that file.
+#    - knownwaps_file has the following format:
+#          MAC-address<TAB>nwid<TAB>password
+#          MAC-address<TAB>nwid<TAB>password
+#          ...
+# USAGE:
+#    - Run program: sudo autowireless
+#
+knownwaps_file="/home/weezel/known_aps"
+
+############################################
+### NO NEED TO EDIT AFTER THIS LINE ########
+############################################
+
+wirelessdev="$(ifconfig |grep -B 4 "groups: wlan" |head -1| \
+	awk -F : '{print $1}')"
+
+if [ `id -u` -ne 0 ]; then
+	printf "Run again with sudo\n"
+	return 1
+fi
+
+function widevflush
+{
+	ifconfig ${wirelessdev} -bssid -chan media autoselect -nwid -nwkey -wpa
+}
+
+widevflush
+wapscan="$(ifconfig $wirelessdev scan)"
+#wapscan="$(cat wlanscan.txt)"
+current_waps="$(echo "${wapscan}" |egrep "^[^\t]{2}nwid" \
+	|sed 's/.*nwid //' |sort)"
+
+OFS=$IFS
+IFS=$'\n'
+printf "${current_waps}\n" |while read ap; do
+	nwid="$(printf "${ap}" | awk -F " chan" '{printf "%s", $1}')"
+	mac="$(printf "${ap}" | awk '{ printf "%s", $(NF - 3) }')"
+	line="$(grep "${nwid}" "${knownwaps_file}")"
+
+	if [ $? -eq 0 ]; then
+		knownap_mac="$(printf "${line}" |awk -F \t '{print $1}')"
+		knownap_pass="$(printf "${line}" |awk -F \t '{print $3}')"
+
+		if [ "${knownap_mac}" != "${mac}" ]; then
+			printf "MAC address has changed for %s [%s -> %s]\n" \
+				"${nwid}" "${knownap_mac}" "${mac}"
+			#logger -p daemon.debug -t `basename $0` \
+			#	"MAC address has changed for %s [%s -> %s]\n" \
+			#	"${nwid}" "${knownap_mac}" "${mac}"
+		fi
+
+		printf "Will use ${nwid} [${mac}]\n"
+		((ifconfig "${wirelessdev}" nwid "${nwid}" wpakey \
+			\'"${knownap_pass}"\'))
+		return 0
+	fi
+done
+IFS=$OFS
+
+return 1
+
