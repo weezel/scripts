@@ -12,14 +12,14 @@ if [ -d ${dirname} ]; then
 
 	case $q in
 	y|yes)	rm -rf "${dirname}" ;;
-	*)	printf "No changes.." ;;
+	*)	printf "No changes..\n" && exit 0;;
 	esac
 fi
 
 mkdir "${dirname}"
 
 fetchlist="$(lynx -source "${url}${arch}/index.txt" \
-	|egrep -v '.iso$|.fs$|cdboot$|cdbr$|game[0-9]{2}.tgz$' \
+	|egrep -v '.iso$|.fs$|cdboot$|cdbr$|game[0-5]{2}.tgz$' \
 	|awk '/^-/ {print $NF}')"
 
 OFS=$IFS
@@ -31,4 +31,4 @@ IFS=$OFS
 
 # Multithreaded mode
 cd "${dirname}"
-xargs -P 4 -n1 ftp -C < ../filelist.txt
+xargs -P 6 -n1 ftp -C < ../filelist.txt
