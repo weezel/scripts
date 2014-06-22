@@ -56,9 +56,14 @@ printf "${current_waps}\n" |while read ap; do
 			#	"${nwid}" "${knownap_mac}" "${mac}"
 		fi
 
-		printf "Will use ${nwid} [${mac}]\n"
-		((ifconfig "${wirelessdev}" nwid "${nwid}" wpakey \
-			\'"${knownap_pass}"\'))
+		if [ "${knownap_pass}" = "-" ]; then
+			printf "Will use ${nwid} [${mac}], no password\n"
+			((ifconfig "${wirelessdev}" nwid "${nwid}"))
+		else
+			printf "Will use ${nwid} [${mac}], password\n"
+			((echo ifconfig "${wirelessdev}" nwid "${nwid}" wpakey \
+				\'"${knownap_pass}"\'))
+		fi
 		return 0
 	fi
 done
