@@ -2,7 +2,7 @@
 
 echo "Please be patient, following process will take time.."
 
-OUTDATED=`/usr/ports/infrastructure/build/./out-of-date |awk '{print $1}'`
+OUTDATED=`/usr/ports/infrastructure/bin/out-of-date |awk '{print $1}'`
 
 for pkg in ${OUTDATED}; do
 	echo "Do you want to update [y/n]: ${pkg}"
