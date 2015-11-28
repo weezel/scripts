@@ -1,7 +1,7 @@
 #!/bin/sh
 
-PRIMARY_DISP="LVDS1"
-EXTERNAL_DISP=$(xrandr -q |grep " connected" |grep -v ${PRIMARY_DISP} | awk '{print $1}')
+PRIMARY_DISP="eDP1"
+EXTERNAL_DISP=$(xrandr -q |awk '$2 ~ "^connected$" {print $1}' |grep -v "${PRIMARY_DISP}")
 set -A DISP_OPTIONS '(d)ouble_monitors' '(m)onitor' '(p)rojector' '(t)elevision' '(r)eset'
 
 printf "Connected ports: %s, %s\n\n" "${PRIMARY_DISP}" "${EXTERNAL_DISP}"
