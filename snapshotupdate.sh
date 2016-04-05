@@ -18,8 +18,8 @@ fi
 
 mkdir "${dirname}"
 
-fetchlist="$(lynx -source "${url}${arch}/index.txt" \
-	|egrep -v '.iso$|.fs$|cdboot$|cdbr$|game[0-9]{2}.tgz$' \
+fetchlist="$(elinks -source "${url}${arch}/index.txt" \
+	|egrep -v '.iso$|.fs$|cdboot$|cdbr$' \
 	|awk '/^-/ {print $NF}')"
 
 OFS=$IFS
