@@ -19,7 +19,7 @@ fi
 mkdir "${dirname}"
 
 fetchlist="$(elinks -source "${url}${arch}/index.txt" \
-	|egrep -v '.iso$|.fs$|cdboot$|cdbr$' \
+	|egrep -v '.?(iso|fs|cdboot|cdbr)$' \
 	|awk '/^-/ {print $NF}')"
 
 OFS=$IFS
