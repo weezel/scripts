@@ -14,5 +14,5 @@ tar -pzcf ${basedir}unbound_${curdate}.tgz /var/unbound
 
 chmod -R 660 ${basedir}
 chmod 760 ${basedir}
-find ${basedir} -type f -cmin +${keepmins} -print0 |xargs -0 rm -f
+find ${basedir} -type f -amin +${keepmins} -print0 |xargs -0 rm -f
 
