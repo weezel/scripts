@@ -1,8 +1,13 @@
-#!/bin/bash
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "usage: $0 hostnamefile"
+	exit 1
+fi
 
 tmux new-session -s maintenance -d
 
-for hname in $(cat machinehostlist.txt); do
+for hname in $(grep -v "^#" "${1}"); do
         tmux send-keys "ssh $hname" C-m
         tmux split-window
         tmux select-layout even-vertical
