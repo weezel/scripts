@@ -1,5 +1,11 @@
 #!/bin/ksh
 
+# On the backup server side, add something like this to cron:
+# 30      6       *       *       *       \
+#	/usr/local/bin/rsync -qa --delete \
+#	fw:/home/username/backup/ /home/username/backup/fw/ >/dev/null 2>&1
+
+
 basedir="/home/weezel/backup/"
 keepmins="1400" # ~ 23.5 h
 
