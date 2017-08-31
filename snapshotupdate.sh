@@ -32,3 +32,6 @@ IFS=$OFS
 # Multithreaded mode
 cd "${dirname}"
 xargs -P 6 -n1 ftp -C < ../filelist.txt
+
+echo "Copy bsd.rd to /"
+doas cp "$(pwd)/${dirname}/bsd.rd" /
