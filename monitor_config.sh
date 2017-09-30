@@ -10,7 +10,7 @@
 _monitorcount=$(xrandr |grep -c " connected")
 case "${_monitorcount}" in
 1)
-	xrandr --output ${_laptop} --on --auto --primary
+	xrandr --output ${_laptop} --auto --primary
 	;;
 2)
 	xrandr --output ${_laptop} --off \
