@@ -33,5 +33,5 @@ IFS=$OFS
 cd "${dirname}"
 xargs -P 6 -n1 ftp -C < ../filelist.txt
 
-echo "Copy bsd.rd to /"
+echo "Copy bsd.rd to /bsdrd.new"
 doas cp "$(pwd)/bsd.rd" /bsdrd.new
