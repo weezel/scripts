@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 
 # $ cat ~/.screenconfig
 # _laptop="eDP1"
