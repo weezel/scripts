@@ -1,0 +1,10 @@
+dhcpd: (DHCPDISCOVER|DHCPINFORM|DHCPN?ACK|DHCPOFFER|DHCPREQUEST) (for|from|on) .*
+newsyslog: logfile turned over
+nfcapd: Ident:.*
+nfcapd: Total ignored packets.*
+ntpd: adjusting (clock|local) (frequency)? by .*
+ntpd: peer .* now (in)?valid
+ntpd: clock is now synced
+ntpd: bad peer from .*
+ntpd: reply from .* not synced .*
+
