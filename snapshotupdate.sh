@@ -1,8 +1,18 @@
-#!/bin/sh
+#!/bin/ksh
 
-url="http://ftp.eu.openbsd.org/pub/OpenBSD/snapshots/"
+set -e
+
 arch="$(uname -p)"
 dirname="$(date +%d-%m-%Y)"
+
+if [[ $1 = "remote" ]]; then
+	url="http://ftp.eu.openbsd.org/pub/OpenBSD/snapshots/"
+	url_arch="${url}${arch}/"
+else
+	url="http://severi.lan/update/${dirname}"
+	url_arch="${url}/"
+fi
+
 
 echo -n "" >filelist.txt
 
@@ -18,14 +28,14 @@ fi
 
 mkdir "${dirname}"
 
-fetchlist="$(lynx -source "${url}${arch}/index.txt" \
+fetchlist="$(lynx -source "${url_arch}/index.txt" \
 	|egrep -v '.?(iso|fs|cdboot|cdbr)$' \
 	|awk '/^-/ {print $NF}')"
 
 OFS=$IFS
 IFS=$'\n'
 printf "${fetchlist}\n" | while read -r item; do
-	printf "%s%s/%s\n" "${url}" "${arch}" "${item}" >>filelist.txt
+	printf "%s/%s\n" "${url_arch}" "${item}" >>filelist.txt
 done
 IFS=$OFS
 
