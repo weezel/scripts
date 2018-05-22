@@ -4,7 +4,7 @@ BASE_DIR="${HOME}/screenlayout"
 
 function usage
 {
-	echo "usage: $0 [save|restore]"
+	echo "usage: $0 [store|restore]"
 	exit 1
 }
 
@@ -26,9 +26,9 @@ function restore
 	done
 }
 
-[ $# -ne 1 ] && usage
-
 [ -d "${BASE_DIR}" ] || mkdir -p "${BASE_DIR}"
+
+[ $# -ne 1 ] && usage
 
 case "${1}" in
 store)
