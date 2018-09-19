@@ -5,12 +5,12 @@ set -e
 arch="$(uname -p)"
 dirname="$(date +%d-%m-%Y)"
 
-if [[ $1 = "remote" ]]; then
-	url="http://ftp.eu.openbsd.org/pub/OpenBSD/snapshots/"
-	url_arch="${url}${arch}/"
-else
+if [[ $1 = "local" ]]; then
 	url="http://severi.lan/update/${dirname}"
 	url_arch="${url}/"
+else
+	url="http://ftp.eu.openbsd.org/pub/OpenBSD/snapshots/"
+	url_arch="${url}${arch}/"
 fi
 
 
