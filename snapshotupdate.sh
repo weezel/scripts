@@ -5,6 +5,17 @@ set -e
 arch="$(uname -p)"
 dirname="$(date +%d-%m-%Y)"
 
+
+generate_urls()
+{
+	OFS=$IFS
+	IFS=$'\n'
+	printf "${1}\n" | while read -r f; do
+		printf "%s/%s\n" "${2}" "${f}"
+	done
+	IFS=$OFS
+}
+
 if [[ $1 = "local" ]]; then
 	url="http://severi.lan/update/${dirname}"
 	url_arch="${url}/"
@@ -13,8 +24,6 @@ else
 	url_arch="${url}${arch}/"
 fi
 
-
-echo -n "" >filelist.txt
 
 if [ -d ${dirname} ]; then
 	printf "Directory '%s' exist, remove it (y/n)?\n" ${dirname}
@@ -32,16 +41,11 @@ fetchlist="$(lynx -source "${url_arch}/index.txt" \
 	|egrep -v '.?(iso|fs|cdboot|cdbr)$' \
 	|awk '/^-/ {print $NF}')"
 
-OFS=$IFS
-IFS=$'\n'
-printf "${fetchlist}\n" | while read -r item; do
-	printf "%s/%s\n" "${url_arch}" "${item}" >>filelist.txt
-done
-IFS=$OFS
 
 # Multithreaded mode
 cd "${dirname}"
-xargs -P 6 -n1 ftp -C < ../filelist.txt
+generate_urls "${fetchlist}" ${url_arch} | xargs -P 6 -n1 ftp -C
 
 echo "Copy bsd.rd to /bsdrd.new"
 doas cp "$(pwd)/bsd.rd" /bsdrd.new
+
