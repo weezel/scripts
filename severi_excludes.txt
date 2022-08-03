@@ -1,0 +1,12 @@
+*.core
+*.pyc
+/etc/firmware
+/home/_sysupgrade
+/home/weezel/bin
+/tmp
+/var/cache
+/var/crash
+/var/run
+/var/tmp
+/var/www/htdocs/update
+/var/www/var/db/nfsen
